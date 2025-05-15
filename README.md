@@ -7,7 +7,7 @@ API (Application Programming Interface) criada para rodar em ambiente Node que c
 - Roteamento
 - Streams
 - Métodos HTTP
-- Regext
+- Regex
 
 ## Como rodar ❓
 Baixe o repositório com o seguinte comando:

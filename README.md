@@ -29,6 +29,9 @@ Exemplo: `SERVER_PORT=3333`
 - ### PUT `http:localhost:SERVER_PORT/tasks/:id`
   - Altera uma tarefa. O usuário pode passar a propriedade 'title' e 'description' com novos valores no body da requisição.
 
-- ### PATCH `http:localhost:SERVER_PORT/tasks/complete`
+ - ### DELETE `http:localhost:SERVER_PORT/tasks/:id`
+  - Exclui uma tarefa.
+
+- ### PATCH `http:localhost:SERVER_PORT/tasks/:id/complete`
   - Altera o atributo `completed_at`, definindo se a tarefa está marcada como `feita` ou `pendente`.
 

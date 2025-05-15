@@ -30,7 +30,7 @@ Exemplo: `SERVER_PORT=3333`
   - Altera uma tarefa. O usuário pode passar a propriedade 'title' e 'description' com novos valores no body da requisição.
 
  - ### DELETE `http:localhost:SERVER_PORT/tasks/:id`
-  - Exclui uma tarefa.
+   - Exclui uma tarefa.
 
 - ### PATCH `http:localhost:SERVER_PORT/tasks/:id/complete`
   - Altera o atributo `completed_at`, definindo se a tarefa está marcada como `feita` ou `pendente`.

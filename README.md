@@ -1,7 +1,7 @@
 # NODE TASK API 📖
 
 ## Descrição do projeto 🖋️
-API (Application Programming Interface) criada para rodar em ambiente Node que cadastra, lê, altera e deleta tarefas (CRUD).
+API (Application Programming Interface) criada para rodar em ambiente Node que cadastra, lê, altera e exclui tarefas (CRUD).
 
 ## Conceitos estudados 🧮
 - Roteamento

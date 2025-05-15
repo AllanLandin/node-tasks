@@ -14,14 +14,22 @@ export const routes = [
     handler: async (req, res) => {
       const { body } = req;
 
-      const isValidTask = body.title && body.description;
-
-      if (!isValidTask) {
+      if (!body) {
         return res
-          .writeHead(406)
-          .end(
-            "Tarefa inválida! Favor preencher os campos de título e descrição."
-          );
+          .writeHead(400)
+          .end(JSON.stringify({ message: "body is required." }));
+      }
+
+      if (!body.title) {
+        return res
+          .writeHead(400)
+          .end(JSON.stringify({ message: "title is required." }));
+      }
+
+      if (!body.description) {
+        return res
+          .writeHead(400)
+          .end(JSON.stringify({ message: "description is required." }));
       }
 
       const task = {
@@ -34,7 +42,9 @@ export const routes = [
 
       try {
         database.insert(TASK_TABLE, task);
-        return res.writeHead(200).end("Tarefa cadastrada com sucesso");
+        return res
+          .writeHead(200)
+          .end(JSON.stringify({ message: "task inserted successfully." }));
       } catch (error) {
         return res.writeHead(500).end(error);
       }
@@ -52,44 +62,61 @@ export const routes = [
     method: "PUT",
     path: buildRoutePath("/tasks/:id"),
     handler: (req, res) => {
-      const {body, params: {id}} = req
+      const {
+        body,
+        params: { id },
+      } = req;
 
-      const task = database.updateTask(TASK_TABLE, id, body)
+      if (!body) {
+        return res
+          .writeHead(400)
+          .end(JSON.stringify({ message: "body is required." }));
+      }
 
-      if(task){
-        return res.writeHead(200).end(task)
-      } 
-      return res.writeHead(404).end("Task não encontrada")
+      const task = database.updateTask(TASK_TABLE, id, body);
+
+      if (task) {
+        return res.writeHead(200).end(task);
+      }
+      return res
+        .writeHead(404)
+        .end(JSON.stringify({ message: "task not found." }));
     },
   },
   {
     method: "DELETE",
     path: buildRoutePath("/tasks/:id"),
     handler: (req, res) => {
-      const {params: {id}} = req
+      const {
+        params: { id },
+      } = req;
 
-      const task = database.deleteTask(TASK_TABLE, id)
+      const task = database.deleteTask(TASK_TABLE, id);
 
-      if(task){
-        return res.writeHead(200).end(task)
+      if (task) {
+        return res.writeHead(200).end(task);
       }
 
-      return res.writeHead(404).end("Task não encontrada")
+      return res
+        .writeHead(404)
+        .end(JSON.stringify({ message: "task not found." }));
     },
   },
   {
     method: "PATCH",
     path: buildRoutePath("/tasks/:id/complete"),
     handler: (req, res) => {
-      const { id } = req.params
+      const { id } = req.params;
 
-      const task = database.toogleTaskStatus(TASK_TABLE, id)
-    
-       if(task){
-        return res.writeHead(200).end(task)
+      const task = database.toogleTaskStatus(TASK_TABLE, id);
+
+      if (task) {
+        return res.writeHead(200).end(task);
       }
 
-      return res.writeHead(404).end("Task não encontrada")
+      return res
+        .writeHead(404)
+        .end(JSON.stringify({ message: "task not found." }));
     },
   },
 ];

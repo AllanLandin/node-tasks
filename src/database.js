@@ -30,62 +30,71 @@ export class Database {
     return JSON.stringify(data);
   }
 
-  updateTask(table, id, update){
-    let newTask = {}
+  updateTask(table, id, update) {
+    let newTask = {};
 
-    if(Array.isArray(this.#database[table])){
-      const taskIndex = this.#database[table].findIndex(task => task.id===id)
+    if (Array.isArray(this.#database[table])) {
+      const taskIndex = this.#database[table].findIndex(
+        (task) => task.id === id
+      );
 
-      if(taskIndex > -1) {
-        const task = this.#database[table][taskIndex] 
-        const newTitle = update.title || task.title
-        const newDescription = update.description || task.description
+      if (taskIndex > -1) {
+        const task = this.#database[table][taskIndex];
+        const newTitle = update.title || task.title;
+        const newDescription = update.description || task.description;
 
-        newTask = {...task, title: newTitle, description: newDescription}
-        this.#database[table][taskIndex] = newTask
+        newTask = { ...task, title: newTitle, description: newDescription };
+        this.#database[table][taskIndex] = newTask;
 
-        this.#persist()
-        return JSON.stringify(newTask)
-      };
+        this.#persist();
+        return JSON.stringify(newTask);
+      }
     }
     return undefined;
   }
 
-  deleteTask(table, id){
-    if(Array.isArray(this.#database[table])){
-      const taskIndex = this.#database[table].findIndex((task)=>task.id === id)
-      
-      if(taskIndex > -1) {
-        const taskDeleted = this.#database[table].splice(taskIndex, 1)
-        this.#persist()
+  deleteTask(table, id) {
+    if (Array.isArray(this.#database[table])) {
+      const taskIndex = this.#database[table].findIndex(
+        (task) => task.id === id
+      );
+
+      if (taskIndex > -1) {
+        const taskDeleted = this.#database[table].splice(taskIndex, 1);
+        this.#persist();
         return JSON.stringify(taskDeleted);
       }
-    } 
+    }
     return undefined;
   }
 
-  toogleTaskStatus(table, id){
-    if(Array.isArray(this.#database[table])){
-      const taskIndex = this.#database[table].findIndex((task)=>task.id === id)
-      
-      if(taskIndex > -1) {
-        if(this.#database[table][taskIndex].completed_at === null){
+  toogleTaskStatus(table, id) {
+    if (Array.isArray(this.#database[table])) {
+      const taskIndex = this.#database[table].findIndex(
+        (task) => task.id === id
+      );
+
+      if (taskIndex > -1) {
+        if (this.#database[table][taskIndex].completed_at === null) {
           this.#database[table][taskIndex].completed_at = new Date();
-        } else{
-          this.#database[table][taskIndex].completed_at = null
+        } else {
+          this.#database[table][taskIndex].completed_at = null;
         }
 
-        this.#persist()
+        this.#persist();
 
-        const taskUpdated = this.#database[table][taskIndex]
+        const taskUpdated = this.#database[table][taskIndex];
         return JSON.stringify(taskUpdated);
-
       }
     }
     return undefined;
   }
 
   select(table) {
+    if (!Array.isArray(this.#database[table])) {
+      this.#persist();
+    }
+
     return JSON.stringify(this.#database[table]);
   }
 }

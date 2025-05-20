@@ -21,10 +21,10 @@ Exemplo: `SERVER_PORT=3333`
 ## Rotas 🚀
 
 - ### GET `http:localhost:SERVER_PORT/tasks`
-  - Lista as tarefas cadastradas no arquivo.
+  - Lista as tarefas cadastradas.
 
 - ### POST `http:localhost:SERVER_PORT/tasks`
-  - Cadastra uma nova tarefa cadastradas no arquivo.
+  - Cadastra uma nova tarefa
 
 - ### PUT `http:localhost:SERVER_PORT/tasks/:id`
   - Altera uma tarefa. O usuário pode passar a propriedade 'title' e 'description' com novos valores no body da requisição.
@@ -33,5 +33,5 @@ Exemplo: `SERVER_PORT=3333`
    - Exclui uma tarefa.
 
 - ### PATCH `http:localhost:SERVER_PORT/tasks/:id/complete`
-  - Altera o atributo `completed_at`, definindo se a tarefa está marcada como `feita` ou `pendente`.
+  - Altera o atributo `completed_at` da tarefa, definindo se ela está marcada como `feita` ou `pendente`.
 
